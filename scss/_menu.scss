@@ -1,0 +1,105 @@
+$off-canvas-width: 80vw;
+$off-canvas-width-md: 30vw;
+
+$off-canvas-width-ie: 80%;
+$off-canvas-width-ie-md: 30%;
+
+html {
+    overflow: hidden;
+}
+
+body {
+    overflow: hidden;
+}
+
+.wrap-canvas {
+    will-change: transform;
+    transform: translate(0, 0);
+    height: 100vh;
+    width: 100vw;
+
+    @include tr(.5s);
+    .opened-off-canvas & {
+        transform: translate($off-canvas-width, 0);
+
+        @media screen and (min-width: 768px) {
+            transform: translate($off-canvas-width-md, 0);
+        }
+    }
+
+    .no-cssgrid .opened-off-canvas & {
+        transform: translate($off-canvas-width-ie, 0);
+    }
+}
+
+.off-canvas {
+    width: $off-canvas-width;
+    position: fixed;
+    height: 100vh;
+    transform: translate(-1 * $off-canvas-width, 0);
+    background-color: $body-color;
+    z-index: 2;
+
+    @media screen and (min-width: 768px) {
+        transform: translate(-1 * $off-canvas-width-md, 0);
+        width: $off-canvas-width-md;
+    }
+    .no-cssgrid .opened-off-canvas & {
+        transform: translate(0, 0);
+    }
+    .no-cssgrid & {
+        width: $off-canvas-width-ie;
+        transform: translate(-1 * $off-canvas-width-ie, 0);
+    }
+
+    .opened-off-canvas & {
+        box-shadow: 0 0 15px 0 $body-color;
+    }
+    
+}
+
+.canvas {
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+
+.menu {
+    list-style: none;
+    padding: 30px;
+
+    &__link {
+        display: block;
+        margin: 15px 0;
+        text-transform: uppercase;
+        color: $secondary-color;
+        font-size: 1.2em;
+        text-decoration: none;
+        font-weight: 700;
+
+        @include hover {
+            color: $accent-color;
+        }
+    }
+}
+
+.toggle-canvas {
+    position: absolute;
+    top: 10px;
+    right: -10px;
+    transform: translate(100%, 0);
+
+    & svg {
+        fill: $body-color;
+        opacity: .5;
+
+        @include tr(.5s);
+    }
+
+    .opened-off-canvas & {
+        svg {
+            fill: $accent-color;
+            transform: rotateZ(180deg);
+        }
+    }
+}
